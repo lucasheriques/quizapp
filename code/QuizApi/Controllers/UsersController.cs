@@ -11,56 +11,56 @@ namespace QuizApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly QuizContext _context;
 
-        public QuestionsController(QuizContext context)
+        public UsersController(QuizContext context)
         {
             _context = context;
         }
 
-        // GET: api/Questions
+        // GET: api/Users
         [HttpGet]
-        public IEnumerable<Question> GetQuestions()
+        public IEnumerable<User> GetUsers()
         {
-            return _context.Questions;
+            return _context.Users;
         }
 
-        // GET: api/Questions/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuestion([FromRoute] int id)
+        public async Task<IActionResult> GetUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = await _context.Questions.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (question == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(question);
+            return Ok(user);
         }
 
-        // PUT: api/Questions/5
+        // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
+        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != question.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(question).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace QuizApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuestionExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace QuizApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Questions
+        // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> PostQuestion([FromBody] Question question)
+        public async Task<IActionResult> PostUser([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Questions.Add(question);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Questions/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
+        public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Questions.Remove(question);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return Ok(question);
+            return Ok(user);
         }
 
-        private bool QuestionExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

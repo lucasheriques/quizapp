@@ -11,56 +11,56 @@ namespace QuizApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class SessionsController : ControllerBase
     {
         private readonly QuizContext _context;
 
-        public QuestionsController(QuizContext context)
+        public SessionsController(QuizContext context)
         {
             _context = context;
         }
 
-        // GET: api/Questions
+        // GET: api/Sessions
         [HttpGet]
-        public IEnumerable<Question> GetQuestions()
+        public IEnumerable<Session> GetSessions()
         {
-            return _context.Questions;
+            return _context.Sessions;
         }
 
-        // GET: api/Questions/5
+        // GET: api/Sessions/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuestion([FromRoute] int id)
+        public async Task<IActionResult> GetSession([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = await _context.Questions.FindAsync(id);
+            var session = await _context.Sessions.FindAsync(id);
 
-            if (question == null)
+            if (session == null)
             {
                 return NotFound();
             }
 
-            return Ok(question);
+            return Ok(session);
         }
 
-        // PUT: api/Questions/5
+        // PUT: api/Sessions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
+        public async Task<IActionResult> PutSession([FromRoute] int id, [FromBody] Session session)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != question.Id)
+            if (id != session.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(question).State = EntityState.Modified;
+            _context.Entry(session).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace QuizApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuestionExists(id))
+                if (!SessionExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace QuizApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Questions
+        // POST: api/Sessions
         [HttpPost]
-        public async Task<IActionResult> PostQuestion([FromBody] Question question)
+        public async Task<IActionResult> PostSession([FromBody] Session session)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Questions.Add(question);
+            _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
+            return CreatedAtAction("GetSession", new { id = session.Id }, session);
         }
 
-        // DELETE: api/Questions/5
+        // DELETE: api/Sessions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
+        public async Task<IActionResult> DeleteSession([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
+            var session = await _context.Sessions.FindAsync(id);
+            if (session == null)
             {
                 return NotFound();
             }
 
-            _context.Questions.Remove(question);
+            _context.Sessions.Remove(session);
             await _context.SaveChangesAsync();
 
-            return Ok(question);
+            return Ok(session);
         }
 
-        private bool QuestionExists(int id)
+        private bool SessionExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.Sessions.Any(e => e.Id == id);
         }
     }
 }

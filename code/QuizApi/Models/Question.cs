@@ -14,9 +14,10 @@ namespace QuizApi.Models
         [Required]
         public string CorrectAnswer { get; set; }
         
+        [Required]
+        public string WrongAnswers { get; set; }
+        
         public int QuizId { get; set; }
         public Quiz Quiz { get; set; }
-        
-        public List<Answer> Alternatives { get; set; }
     }
 }

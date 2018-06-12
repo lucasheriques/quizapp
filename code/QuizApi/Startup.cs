@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using QuizApi.Models;
+using NJsonSchema;
+using NSwag.AspNetCore;
+using System.Reflection;
 
 namespace QuizApi
 {
@@ -36,6 +39,12 @@ namespace QuizApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling = 
+                    PropertyNameHandling.CamelCase;
+            });
 
             app.UseMvc();
         }

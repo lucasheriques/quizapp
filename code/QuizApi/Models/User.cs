@@ -7,7 +7,7 @@ namespace QuizApi.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Tuple<int, bool>> Questions { get; set; }
+        public string AnsweredQuestions { get; set; }
         public int SessionId { get; set; }
         public Session Session { get; set; }
     }
