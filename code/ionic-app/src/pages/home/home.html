@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Lista de Quizzes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <button ion-button block (click)="openGame()">
+    Participar de uma sessão
+  </button>
+
+  <ion-list inset>
+    <ion-card *ngFor="let quiz of quizzes">
+      <ion-card-header>
+        {{quiz.name}}
+      </ion-card-header>
+      <ion-card-content>
+        Descrição: {{quiz.description}}
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small (click)="openQuiz(quiz.id)">
+            <ion-icon name="arrow-forward"></ion-icon>
+            <div>Detalhes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button ion-button color="danger" icon-left clear small (click)="deleteQuiz(quiz.id)">
+            <ion-icon name="trash"></ion-icon>
+            <div>Deletar</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab (click)="addQuizModal()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
