@@ -13,6 +13,9 @@ using QuizApi.Models;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using System.Reflection;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using QuizApi.Controllers;
 
 namespace QuizApi
 {
@@ -28,8 +31,14 @@ namespace QuizApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QuizContext>(opt => opt.UseInMemoryDatabase("QuizContext"));
-            services.AddMvc();
+            services.AddDbContext<QuizContext>(opt => opt.UseMySql("server=localhost;database=quiz;user=root;password=123456"));
+            services.AddCors();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,11 +48,21 @@ namespace QuizApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
             {
-                settings.GeneratorSettings.DefaultPropertyNameHandling = 
+                settings.GeneratorSettings.DefaultPropertyNameHandling =
                     PropertyNameHandling.CamelCase;
+            });
+
+            app.UseCors(builder => builder
+             .AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .AllowCredentials());
+            app.UseSignalR(route =>
+            {
+                route.MapHub<GameHub>("/game");
             });
 
             app.UseMvc();

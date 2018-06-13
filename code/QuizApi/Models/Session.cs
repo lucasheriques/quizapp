@@ -9,6 +9,8 @@ namespace QuizApi.Models
         [Required]
         public string Name { get; set; }
         public bool Available { get; set; }
+        public int QuizId { get; set; }
+        public Quiz Quiz { get; set; }
         public List<User> Users { get; set; }
     }
 }

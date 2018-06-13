@@ -24,7 +24,11 @@ namespace QuizApi.Controllers
         [HttpGet]
         public IEnumerable<Session> GetSessions()
         {
-            return _context.Sessions;
+            var sessions = _context.Sessions
+                .Include(s => s.Users)
+                .ToList();
+
+            return sessions;
         }
 
         // GET: api/Sessions/5
@@ -42,6 +46,10 @@ namespace QuizApi.Controllers
             {
                 return NotFound();
             }
+
+            _context.Users
+                .Where(u => u.SessionId == session.Id)
+                .Load();
 
             return Ok(session);
         }

@@ -24,7 +24,11 @@ namespace QuizApi.Controllers
         [HttpGet]
         public IEnumerable<Quiz> GetQuizzes()
         {
-            return _context.Quizzes;
+            var quizzes = _context.Quizzes
+                .Include(quiz => quiz.Questions)
+                .ToList();
+
+            return quizzes;
         }
 
         // GET: api/Quizzes/5
@@ -42,6 +46,14 @@ namespace QuizApi.Controllers
             {
                 return NotFound();
             }
+
+            _context.Questions
+                .Where(q => q.QuizId == quiz.Id)
+                .Load();
+
+            _context.Sessions
+                .Where(s => s.QuizId == quiz.Id)
+                .Load();
 
             return Ok(quiz);
         }
