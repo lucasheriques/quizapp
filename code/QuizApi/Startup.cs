@@ -31,7 +31,7 @@ namespace QuizApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QuizContext>(opt => opt.UseMySql("server=localhost;database=quiz;user=root;password=123456"));
+            services.AddDbContext<QuizContext>(opt => opt.UseMySql("server=sql10.freemysqlhosting.net;database=sql10242937;user=sql10242937;password=Deku5upXJu"));
             services.AddCors();
             services.AddMvc().AddJsonOptions(options =>
             {
