@@ -13,13 +13,28 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card *ngIf="quiz">
+<ion-content padding *ngIf="quiz">
+  <ion-card>
     <ion-card-header>
       Sessões
     </ion-card-header>
     <button ion-item *ngFor="let session of quiz.sessions" (click)="openSession(session.id)">
       #{{session.id}} - {{session.name}}
+    </button>
+    <button ion-button>
+      Adicionar
+    </button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Perguntas
+    </ion-card-header>
+    <button ion-item *ngFor="let question of quiz.questions">
+      {{question.statement}}
+    </button>
+    <button ion-button (click)="addQuestion(question.id)">
+      Adicionar
     </button>
   </ion-card>
 </ion-content>

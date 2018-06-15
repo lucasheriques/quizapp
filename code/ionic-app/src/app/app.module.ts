@@ -1,17 +1,18 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
-import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {StatusBar} from '@ionic-native/status-bar';
-import {HttpClientModule} from '@angular/common/http';
+import { BrowserModule } from "@angular/platform-browser";
+import { ErrorHandler, NgModule } from "@angular/core";
+import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { StatusBar } from "@ionic-native/status-bar";
+import { HttpClientModule } from "@angular/common/http";
 
-import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
-import {RestProvider} from '../providers/rest/rest';
-import {AddQuizPage} from '../pages/add-quiz/add-quiz';
-import {QuizPage} from '../pages/quiz/quiz';
-import {SessionPage} from '../pages/session/session';
-import {GamePage} from '../pages/game/game';
+import { MyApp } from "./app.component";
+import { HomePage } from "../pages/home/home";
+import { RestProvider } from "../providers/rest/rest";
+import { AddQuizPage } from "../pages/add-quiz/add-quiz";
+import { QuizPage } from "../pages/quiz/quiz";
+import { SessionPage } from "../pages/session/session";
+import { GamePage } from "../pages/game/game";
+import { QuestionPage } from "../pages/question/question";
 
 @NgModule({
   declarations: [
@@ -20,11 +21,10 @@ import {GamePage} from '../pages/game/game';
     AddQuizPage,
     QuizPage,
     SessionPage,
-    GamePage
+    GamePage,
+    QuestionPage
   ],
-  imports: [
-    BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)
-  ],
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -32,11 +32,13 @@ import {GamePage} from '../pages/game/game';
     AddQuizPage,
     QuizPage,
     SessionPage,
-    GamePage
+    GamePage,
+    QuestionPage
   ],
   providers: [
     StatusBar,
-    SplashScreen, {
+    SplashScreen,
+    {
       provide: ErrorHandler,
       useClass: IonicErrorHandler
     },

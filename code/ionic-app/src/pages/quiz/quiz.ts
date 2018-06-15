@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {RestProvider} from '../../providers/rest/rest';
-import {SessionPage} from '../session/session';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { RestProvider } from "../../providers/rest/rest";
+import { SessionPage } from "../session/session";
+import { QuestionPage } from "../question/question";
 
 /**
  * Generated class for the QuizPage page.
@@ -11,49 +12,50 @@ import {SessionPage} from '../session/session';
  */
 
 @IonicPage()
-@Component({selector: 'page-quiz', templateUrl: 'quiz.html'})
+@Component({ selector: "page-quiz", templateUrl: "quiz.html" })
 export class QuizPage {
-  quiz : any;
+  quiz: any;
 
-  constructor(public navCtrl : NavController, public navParams : NavParams, public restProvider : RestProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restProvider: RestProvider
+  ) {
     this.getQuiz(navParams.get("id"));
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad QuizPage');
+    console.log("ionViewDidLoad QuizPage");
   }
 
   getQuiz(id) {
-    this
-      .restProvider
-      .getQuiz(id)
-      .then(data => {
-        this.quiz = data;
-        console.log(this.quiz);
-      });
+    this.restProvider.getQuiz(id).then(data => {
+      this.quiz = data;
+      console.log(this.quiz);
+    });
   }
 
   addSession() {
-    this
-      .restProvider
-      .addQuiz(this.quiz)
-      .then((result) => {
+    this.restProvider.addQuiz(this.quiz).then(
+      result => {
         console.log(result);
-      }, (err) => {
+      },
+      err => {
         console.log(err);
-      });
+      }
+    );
   }
 
   openQuiz(id) {
-    this
-      .navCtrl
-      .push(QuizPage, {id: id})
+    this.navCtrl.push(QuizPage, { id: id });
   }
 
   openSession(id) {
-    this
-      .navCtrl
-      .push(SessionPage, {id: id})
+    this.navCtrl.push(SessionPage, { id: id });
   }
-
+  addQuestion(id) {
+    this.navCtrl.push(QuestionPage, {
+      id: id
+    });
+  }
 }

@@ -26,6 +26,7 @@ namespace QuizApi.Controllers
         {
             var quizzes = _context.Quizzes
                 .Include(quiz => quiz.Questions)
+                .Include(quiz => quiz.Sessions)
                 .ToList();
 
             return quizzes;

@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list *ngIf="session">
+<ion-content padding *ngIf="session">
+  <ion-list>
     <ion-list-header>
       Participantes
     </ion-list-header>
@@ -23,6 +23,11 @@
     </ion-item>
   </ion-list>
   <ion-fab right bottom>
+    <button ion-fab (click)="getSession(session.id)">
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-fab left bottom>
     <button ion-fab (click)="getSession(session.id)">
       <ion-icon name="refresh"></ion-icon>
     </button>
