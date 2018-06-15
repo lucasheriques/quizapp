@@ -21,7 +21,7 @@
     <button ion-item *ngFor="let session of quiz.sessions" (click)="openSession(session.id)">
       #{{session.id}} - {{session.name}}
     </button>
-    <button ion-button>
+    <button ion-button (click)="createSession(quiz.id)">
       Adicionar
     </button>
   </ion-card>
@@ -30,9 +30,15 @@
     <ion-card-header>
       Perguntas
     </ion-card-header>
-    <button ion-item *ngFor="let question of quiz.questions">
-      {{question.statement}}
-    </button>
+    <ion-list >
+      <button  ion-item *ngFor="let question of quiz.questions">
+        {{question.statement}}
+        <button ion-button color="danger" icon-left clear small (click)=" deleteQuestions(question.id)" item-end>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </button>
+     
+    </ion-list>
     <button ion-button (click)="addQuestion(quiz.id)">
       Adicionar
     </button>

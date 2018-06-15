@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { RestProvider } from "../../providers/rest/rest";
 import { SessionPage } from "../session/session";
 import { QuestionPage } from "../question/question";
+import { AddSessionPage } from "../add-session/add-session";
 
 /**
  * Generated class for the QuizPage page.
@@ -21,11 +22,14 @@ export class QuizPage {
     public navParams: NavParams,
     public restProvider: RestProvider
   ) {
-    this.getQuiz(navParams.get("id"));
+    
   }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad QuizPage");
+  }
+  ionViewDidEnter(){
+    this.getQuiz(this.navParams.get("id"));
   }
 
   getQuiz(id) {
@@ -56,6 +60,20 @@ export class QuizPage {
   addQuestion(id) {
     this.navCtrl.push(QuestionPage, {
       id: id
+    });
+  }
+  deleteQuestions(id) {
+    this
+      .restProvider
+      .deleteQuestions(id)
+      .then(data => {
+        this.deleteQuestions(id);
+      });
+      this.getQuiz(this.navParams.get("id"));
+  }
+  createSession(id){
+    this.navCtrl.push(AddSessionPage, {
+      id:id
     });
   }
 }

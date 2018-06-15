@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { LoadingController } from "ionic-angular";
 
 /*
   Generated class for the RestProvider provider.
@@ -11,17 +12,23 @@ import { Injectable } from "@angular/core";
 export class RestProvider {
   apiUrl = "http://quizapi.azurewebsites.net/api";
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,public loadingCtrl:LoadingController) {
     console.log("Hello RestProvider Provider");
   }
 
   getQuiz(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise(resolve => {
       this.http.get(this.apiUrl + "/quizzes/" + id).subscribe(
         data => {
+          loader.dismiss();
           resolve(data);
         },
         err => {
+          loader.dismiss();
           console.log(err);
         }
       );
@@ -29,12 +36,18 @@ export class RestProvider {
   }
 
   getQuizzes() {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise(resolve => {
       this.http.get(this.apiUrl + "/quizzes").subscribe(
         data => {
+          loader.dismiss();
           resolve(data);
         },
         err => {
+          loader.dismiss();
           console.log(err);
         }
       );
@@ -42,6 +55,10 @@ export class RestProvider {
   }
 
   addQuiz(data) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise((resolve, reject) => {
       this.http
         .post(this.apiUrl + "/quizzes", JSON.stringify(data), {
@@ -49,9 +66,11 @@ export class RestProvider {
         })
         .subscribe(
           res => {
+            loader.dismiss();
             resolve(res);
           },
           err => {
+            loader.dismiss();
             reject(err);
           }
         );
@@ -59,12 +78,18 @@ export class RestProvider {
   }
 
   deleteQuiz(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise(resolve => {
       this.http.delete(this.apiUrl + "/quizzes/" + id).subscribe(
         data => {
+          loader.dismiss();
           resolve(data);
         },
         err => {
+          loader.dismiss();
           console.log(err);
         }
       );
@@ -72,12 +97,18 @@ export class RestProvider {
   }
 
   getSession(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise(resolve => {
       this.http.get(this.apiUrl + "/sessions/" + id).subscribe(
         data => {
+          loader.dismiss();
           resolve(data);
         },
         err => {
+          loader.dismiss();
           console.log(err);
         }
       );
@@ -85,6 +116,10 @@ export class RestProvider {
   }
 
   addSession(data) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise((resolve, reject) => {
       this.http
         .post(this.apiUrl + "/sessions", JSON.stringify(data), {
@@ -92,9 +127,11 @@ export class RestProvider {
         })
         .subscribe(
           res => {
+            loader.dismiss();
             resolve(res);
           },
           err => {
+            loader.dismiss();
             reject(err);
           }
         );
@@ -102,6 +139,10 @@ export class RestProvider {
   }
 
   addUser(data) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise((resolve, reject) => {
       this.http
         .post(this.apiUrl + "/users", JSON.stringify(data), {
@@ -109,15 +150,21 @@ export class RestProvider {
         })
         .subscribe(
           res => {
+            loader.dismiss();
             resolve(res);
           },
           err => {
+            loader.dismiss();
             reject(err);
           }
         );
     });
   }
   addQuestions(data) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
     return new Promise((resolve, reject) => {
       this.http
         .post(this.apiUrl + "/questions", JSON.stringify(data), {
@@ -125,12 +172,33 @@ export class RestProvider {
         })
         .subscribe(
           res => {
+            loader.dismiss();
             resolve(res);
           },
           err => {
+            loader.dismiss();
             reject(err);
           }
         );
     });
   }
+  deleteQuestions(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
+    return new Promise(resolve => {
+      this.http.delete(this.apiUrl + "/questions/" + id).subscribe(
+        data => {
+          loader.dismiss();
+          resolve(data);
+        },
+        err => {
+          loader.dismiss();
+          console.log(err);
+        }
+      );
+    });
+  }
+
 }
