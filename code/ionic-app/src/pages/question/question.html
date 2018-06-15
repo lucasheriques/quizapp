@@ -14,5 +14,29 @@
 
 
 <ion-content padding>
-
+  <ion-item>
+    <ion-label floating>Enunciado</ion-label>
+    <ion-input type="text" [(ngModel)]="question.statement"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Resposta certa</ion-label>
+    <ion-input type="text" [(ngModel)]="question.correctAnswer"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Resposta errada</ion-label>
+    <ion-input type="text" [(ngModel)]="wrongAnswers.a1"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Resposta errada</ion-label>
+    <ion-input type="text" [(ngModel)]="wrongAnswers.a2"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Resposta errada</ion-label>
+    <ion-input type="text" [(ngModel)]="wrongAnswers.a3"></ion-input>
+  </ion-item>
+  <ion-fab right bottom>
+    <button ion-fab (click)="send()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

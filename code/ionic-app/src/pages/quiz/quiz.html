@@ -33,7 +33,7 @@
     <button ion-item *ngFor="let question of quiz.questions">
       {{question.statement}}
     </button>
-    <button ion-button (click)="addQuestion(question.id)">
+    <button ion-button (click)="addQuestion(quiz.id)">
       Adicionar
     </button>
   </ion-card>
