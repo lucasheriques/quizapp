@@ -117,4 +117,20 @@ export class RestProvider {
         );
     });
   }
+  addQuestions(data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.apiUrl + "/questions", JSON.stringify(data), {
+          headers: new HttpHeaders().set("Content-Type", "application/json")
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+          },
+          err => {
+            reject(err);
+          }
+        );
+    });
+  }
 }

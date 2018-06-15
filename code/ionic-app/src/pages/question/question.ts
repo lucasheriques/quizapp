@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
 
 /**
  * Generated class for the QuestionPage page.
@@ -14,12 +15,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'question.html',
 })
 export class QuestionPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+question={"statement":"","correctAnswer":"","wrongAnswers":"RespostaErrada_;_RespostaErrada_;_RespostaErrada","quizId":""};
+wrongAnswers={"a1":"","a2":"","a3":""};
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider:RestProvider) {
+    this.question.quizId=navParams.get('id');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuestionPage');
   }
+  send(){
+    this.question.wrongAnswers=this.wrongAnswers.a1+"_;_"+this.wrongAnswers.a2+"_;_"+this.wrongAnswers.a3;
+   this.addQuestion();
+   this.navCtrl.pop();
+
+  }
+  addQuestion(){
+    this
+    .restProvider
+    .addQuestions(this.question)
+    .then((result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
 
 }
