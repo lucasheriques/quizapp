@@ -4,6 +4,7 @@ import { RestProvider } from "../../providers/rest/rest";
 import { SessionPage } from "../session/session";
 import { QuestionPage } from "../question/question";
 import { AddSessionPage } from "../add-session/add-session";
+import { QuestionsDetailsPage } from "../questions-details/questions-details";
 
 /**
  * Generated class for the QuizPage page.
@@ -67,13 +68,18 @@ export class QuizPage {
       .restProvider
       .deleteQuestions(id)
       .then(data => {
-        this.deleteQuestions(id);
+      
       });
       this.getQuiz(this.navParams.get("id"));
   }
   createSession(id){
     this.navCtrl.push(AddSessionPage, {
       id:id
+    });
+  }
+  questionDetails(id){
+    this.navCtrl.push(QuestionsDetailsPage, {
+      id: id
     });
   }
 }

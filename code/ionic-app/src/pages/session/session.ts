@@ -28,6 +28,15 @@ export class SessionPage {
         console.log(this.session);
       });
   }
+  sessionsToggle(id) {
+    this
+      .restProvider
+      .sessionsToggle(id)
+      .then(data => {
+        this.session = data;
+        console.log(this.session);
+      });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SessionPage');

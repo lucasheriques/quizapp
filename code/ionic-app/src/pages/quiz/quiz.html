@@ -31,7 +31,7 @@
       Perguntas
     </ion-card-header>
     <ion-list >
-      <button  ion-item *ngFor="let question of quiz.questions">
+      <button  ion-item *ngFor="let question of quiz.questions" (click)="questionDetails(question.id)">
         {{question.statement}}
         <button ion-button color="danger" icon-left clear small (click)=" deleteQuestions(question.id)" item-end>
           <ion-icon name="trash"></ion-icon>

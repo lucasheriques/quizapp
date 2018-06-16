@@ -200,5 +200,42 @@ export class RestProvider {
       );
     });
   }
+  getQuestion(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + "/questions/" + id).subscribe(
+        data => {
+          loader.dismiss();
+          resolve(data);
+        },
+        err => {
+          loader.dismiss();
+          console.log(err);
+        }
+      );
+    });
+  }
+   sessionsToggle(id) {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando... Por favor Espere "
+    });
+    loader.present();
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + "/sessions/" + id+"/toggle").subscribe(
+        data => {
+          loader.dismiss();
+          resolve(data);
+        },
+        err => {
+          loader.dismiss();
+          console.log(err);
+        }
+      );
+    });
+  }
+
 
 }

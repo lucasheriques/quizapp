@@ -14,6 +14,7 @@ import { SessionPage } from "../pages/session/session";
 import { GamePage } from "../pages/game/game";
 import { QuestionPage } from "../pages/question/question";
 import { AddSessionPage } from "../pages/add-session/add-session";
+import { QuestionsDetailsPage } from "../pages/questions-details/questions-details";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddSessionPage } from "../pages/add-session/add-session";
     SessionPage,
     GamePage,
     QuestionPage,
-    AddSessionPage
+    AddSessionPage,
+    QuestionsDetailsPage,
   ],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
@@ -36,7 +38,8 @@ import { AddSessionPage } from "../pages/add-session/add-session";
     SessionPage,
     GamePage,
     QuestionPage,
-    AddSessionPage
+    AddSessionPage,
+    QuestionsDetailsPage
   ],
   providers: [
     StatusBar,
