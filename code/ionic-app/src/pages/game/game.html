@@ -26,17 +26,22 @@
     <button style="margin-top: 32px" ion-button type="submit" block>Entrar</button>
   </form>
 
-  <ion-card *ngFor="let question of questions | slice: 1; let i = index">
-    <ion-card-header>
-      {{i+1}}. {{question.statement}}
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list radio-group>
-        <ion-item *ngFor="let key of Object.keys(question.answers)">
-          <ion-label>{{question.answers[key]}}</ion-label>
-          <ion-radio value="{{key}}"></ion-radio>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="ready">
+    Nome:
+    <span style="color: #C2185B">{{user.name}}</span>
+    <ion-card *ngFor="let question of questions | slice: 1; let i = index">
+      <ion-card-header>
+        {{i+1}}. {{question.statement}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list radio-group>
+          <ion-item *ngFor="let key of Object.keys(question.answers); let j = index">
+            <ion-label>{{question.answers[key]}}</ion-label>
+            <ion-radio value="{{key}}" (click)="storeAnswer(key, i)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <button style="margin-top: 32px" ion-button type="submit" block (click)="finishSession()">Finalizar</button>
+  </div>
 </ion-content>

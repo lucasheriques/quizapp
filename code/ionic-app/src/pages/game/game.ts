@@ -1,4 +1,4 @@
-import { Component, Pipe, PipeTransform } from "@angular/core";
+import { Component } from "@angular/core";
 import {
   IonicPage,
   NavController,
@@ -24,10 +24,11 @@ import * as signalR from "@aspnet/signalr";
 })
 export class GamePage {
   user = {
+    id: 0,
     name: "",
     answeredQuestions: "",
-    wins: "",
-    loses: "",
+    wins: 0,
+    loses: 0,
     sessionId: ""
   };
   sessionId: number;
@@ -35,6 +36,7 @@ export class GamePage {
   ready = false;
   start = false;
   quiz: any;
+  answers = [];
   questions = [
     {
       statement: "",
@@ -42,12 +44,19 @@ export class GamePage {
     }
   ];
   Object = Object;
+  finished = false;
 
   private _hubConnection: HubConnection | undefined;
 
   public sendMessage(): void {
     if (this._hubConnection) {
-      this._hubConnection.invoke("Send", "update", "Lucas");
+      this._hubConnection.invoke(
+        "Send",
+        this.user.id,
+        this.user.name,
+        this.user.wins,
+        this.user.loses
+      );
     }
   }
 
@@ -59,7 +68,7 @@ export class GamePage {
     public loadingCtrl: LoadingController
   ) {
     this._hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:9276/game")
+      .withUrl("http://192.168.43.170:5000/game")
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
@@ -86,16 +95,42 @@ export class GamePage {
     console.log(this.questions[0].answers);
   }
 
+  computeAnswers() {
+    this.user.wins = 0;
+    this.user.loses = 0;
+    this.user.answeredQuestions = "";
+    this.answers.forEach((answer, index) => {
+      if (answer) this.user.wins++;
+      else this.user.loses++;
+      this.user.answeredQuestions += "" + index + answer;
+    });
+    console.log(this.user.wins);
+  }
+
+  storeAnswer(correct, index) {
+    if (correct == "t") this.answers[index] = true;
+    else this.answers[index] = false;
+    this.computeAnswers();
+    this.sendMessage();
+  }
+
   joinSession() {
     this.restProvider.addUser(this.user).then(
       result => {
         console.log(result);
-        this._hubConnection.invoke("Send", "update", "Lucas");
+        this.user.id = result.id;
+        console.log(this.user);
+        this._hubConnection.invoke(
+          "Send",
+          this.user.id,
+          this.user.name,
+          this.user.wins,
+          this.user.loses
+        );
         this.ready = true;
         this.sessionId = result.sessionId;
         this.restProvider.getQuiz(result.session.quizId).then(data => {
           this.quiz = data;
-          console.log(this.quiz);
           this.getQuestions();
         });
         const loader = this.loadingCtrl.create({
@@ -113,6 +148,19 @@ export class GamePage {
           buttons: ["OK"]
         });
         alert.present();
+        console.log(err);
+      }
+    );
+  }
+
+  finishSession() {
+    this.computeAnswers();
+    this.restProvider.editUser(this.user.id, this.user).then(
+      result => {
+        console.log(result);
+        this.finished = true;
+      },
+      err => {
         console.log(err);
       }
     );

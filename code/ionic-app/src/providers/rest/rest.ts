@@ -10,7 +10,7 @@ import { LoadingController } from "ionic-angular";
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = "http://localhost:9276/api";
+  apiUrl = "http://192.168.43.170:5000/api";
 
   constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
     console.log("Hello RestProvider Provider");
@@ -219,6 +219,19 @@ export class RestProvider {
         },
         err => {
           loader.dismiss();
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  editUser(id, data) {
+    return new Promise(resolve => {
+      this.http.put(this.apiUrl + "/users/" + id, data).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
           console.log(err);
         }
       );

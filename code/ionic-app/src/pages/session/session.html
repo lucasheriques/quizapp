@@ -35,15 +35,15 @@
         Número de erros
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let user of session?.users" style="font-size: 16px;">
+    <ion-row *ngFor="let user of getUsersArray(); let i = index" style="font-size: 16px;">
       <ion-col>
         {{user.name}}
       </ion-col>
       <ion-col style="color: #8BC34A">
-        n de questoes certas
+        {{user.wins}}
       </ion-col>
       <ion-col style="color: #C2185B">
-        n de questoes erradas
+        {{user.loses}}
       </ion-col>
     </ion-row>
   </ion-grid>
