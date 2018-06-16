@@ -26,7 +26,6 @@ namespace QuizApi.Controllers
         {
             var quizzes = _context.Quizzes
                 .Include(quiz => quiz.Questions)
-                .Include(quiz => quiz.Sessions)
                 .ToList();
 
             return quizzes;
@@ -55,7 +54,7 @@ namespace QuizApi.Controllers
             _context.Sessions
                 .Where(s => s.QuizId == quiz.Id)
                 .Load();
-
+            
             return Ok(quiz);
         }
 

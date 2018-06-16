@@ -10,6 +10,8 @@ namespace QuizApi.Models
         [Required]
         public string Name { get; set; }
         public string AnsweredQuestions { get; set; }
+        public int Wins { get; set; }
+        public int Loses { get; set; }
         public int SessionId { get; set; }
         public Session Session { get; set; }
     }

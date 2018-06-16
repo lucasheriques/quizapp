@@ -13,6 +13,9 @@ import { QuizPage } from "../pages/quiz/quiz";
 import { SessionPage } from "../pages/session/session";
 import { GamePage } from "../pages/game/game";
 import { QuestionPage } from "../pages/question/question";
+import { AddSessionPage } from "../pages/add-session/add-session";
+import { QuestionsDetailsPage } from "../pages/questions-details/questions-details";
+import { TestPipe } from "../pipes/test/test";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { QuestionPage } from "../pages/question/question";
     QuizPage,
     SessionPage,
     GamePage,
-    QuestionPage
+    QuestionPage,
+    AddSessionPage,
+    QuestionsDetailsPage,
+    TestPipe
   ],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
@@ -33,7 +39,9 @@ import { QuestionPage } from "../pages/question/question";
     QuizPage,
     SessionPage,
     GamePage,
-    QuestionPage
+    QuestionPage,
+    AddSessionPage,
+    QuestionsDetailsPage
   ],
   providers: [
     StatusBar,

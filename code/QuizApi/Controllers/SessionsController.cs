@@ -50,7 +50,33 @@ namespace QuizApi.Controllers
             _context.Users
                 .Where(u => u.SessionId == session.Id)
                 .Load();
+            
+            return Ok(session);
+        }
+        
+        // GET: api/Sessions/5/close
+        [HttpGet("{id}/toggle")]
+        public async Task<IActionResult> ToggleSession([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var session = await _context.Sessions.FindAsync(id);
+
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            session.Available = !session.Available;
+            _context.SaveChanges();
+            
+            _context.Users
+                .Where(u => u.SessionId == session.Id)
+                .Load();
+            
             return Ok(session);
         }
 

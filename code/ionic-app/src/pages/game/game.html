@@ -14,30 +14,34 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="joinSession()" *ngIf="!user.ready">
+  <form (ngSubmit)="joinSession()" *ngIf="!ready">
     <ion-item style="padding-left: 0px">
       <ion-label color="primary" floating>Nome de Usuário</ion-label>
       <ion-input [(ngModel)]="user.name" name="name"></ion-input>
     </ion-item>
     <ion-item style="padding-left: 0px">
       <ion-label color="primary" floating>ID da Sessão</ion-label>
-      <ion-textarea [(ngModel)]="user.sessionId" name="sessionId"></ion-textarea>
+      <ion-input [(ngModel)]="user.sessionId" name="sessionId"></ion-input>
     </ion-item>
     <button style="margin-top: 32px" ion-button type="submit" block>Entrar</button>
   </form>
 
-  <form (ngSubmit)="sendMessage()">
-    <ion-item style="padding-left: 0px">
-      <ion-label color="primary" floating>msg</ion-label>
-      <ion-input [(ngModel)]="message" name="message"></ion-input>
-    </ion-item>
-    <button style="margin-top: 32px" ion-button type="submit" block>enviar</button>
-  </form>
-
-  <ion-list *ngIf="messages.length > 0">
-    <ion-item *ngFor="let message of messages">
-      {{messages}}
-    </ion-item>
-  </ion-list>
-
+  <div *ngIf="ready">
+    Nome:
+    <span style="color: #C2185B">{{user.name}}</span>
+    <ion-card *ngFor="let question of questions | slice: 1; let i = index">
+      <ion-card-header>
+        {{i+1}}. {{question.statement}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list radio-group>
+          <ion-item *ngFor="let key of Object.keys(question.answers); let j = index">
+            <ion-label>{{question.answers[key]}}</ion-label>
+            <ion-radio value="{{key}}" (click)="storeAnswer(key, i)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <button style="margin-top: 32px" ion-button type="submit" block (click)="finishSession()">Finalizar</button>
+  </div>
 </ion-content>
