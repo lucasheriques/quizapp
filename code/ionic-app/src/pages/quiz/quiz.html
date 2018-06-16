@@ -13,34 +13,36 @@
 </ion-header>
 
 
-<ion-content padding *ngIf="quiz">
-  <ion-card>
-    <ion-card-header>
-      Sessões
-    </ion-card-header>
-    <button ion-item *ngFor="let session of quiz.sessions" (click)="openSession(session.id)">
-      #{{session.id}} - {{session.name}}
-    </button>
-    <button ion-button (click)="createSession(quiz.id)">
-      Adicionar
-    </button>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      Perguntas
-    </ion-card-header>
-    <ion-list >
-      <button  ion-item *ngFor="let question of quiz.questions" (click)="questionDetails(question.id)">
-        {{question.statement}}
-        <button ion-button color="danger" icon-left clear small (click)=" deleteQuestions(question.id)" item-end>
-          <ion-icon name="trash"></ion-icon>
-        </button>
+<ion-content padding>
+  <div *ngIf="quiz">
+    <ion-card style="margin-bottom: 32px">
+      <ion-card-header>
+        Sessões
+      </ion-card-header>
+      <button ion-item *ngFor="let session of quiz.sessions" (click)="openSession(session.id)">
+        #{{session.id}} - {{session.name}}
       </button>
-     
-    </ion-list>
-    <button ion-button (click)="addQuestion(quiz.id)">
-      Adicionar
-    </button>
-  </ion-card>
+      <button ion-button (click)="createSession(quiz.id)">
+        Adicionar
+      </button>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        Perguntas
+      </ion-card-header>
+      <ion-list>
+        <button ion-item *ngFor="let question of quiz.questions" (click)="questionDetails(question.id)">
+          {{question.statement}}
+          <button ion-button color="danger" icon-left clear small (click)=" deleteQuestions(question.id)" item-end>
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </button>
+
+      </ion-list>
+      <button ion-button (click)="addQuestion(quiz.id)">
+        Adicionar
+      </button>
+    </ion-card>
+  </div>
 </ion-content>

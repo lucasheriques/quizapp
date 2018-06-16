@@ -7,12 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <button ion-button block (click)="openGame()">
-    Participar de uma sessão
-  </button>
 
   <ion-list inset>
-    <ion-card *ngFor="let quiz of quizzes">
+    <button ion-button block (click)="openGame()">
+      Participar de uma sessão
+    </button>
+    <ion-card *ngFor="let quiz of quizzes" style="margin-bottom: 32px">
       <ion-card-header>
         {{quiz.name}}
       </ion-card-header>

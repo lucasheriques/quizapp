@@ -13,15 +13,42 @@
 </ion-header>
 
 
-<ion-content padding *ngIf="session">
-  <ion-list>
-    <ion-list-header>
-      Participantes
-    </ion-list-header>
-    <ion-item *ngFor="let user of session.users">
-      {{user.name}}
-    </ion-item>
-  </ion-list>
+<ion-content padding>
+  <p style="margin-left: 10px; font-size: 18px;" *ngIf="session?.available">Status do Quiz:
+    <span style="color: #8BC34A; font-weight: bold;">aberto</span>
+  </p>
+  <p style="margin-left: 10px; font-size: 18px" *ngIf="!session?.available">Status do Quiz:
+    <span style="color: #C2185B; font-weight: bold;">fechado</span>
+  </p>
+  <button *ngIf="!session?.available" ion-button color="primary" (click)="startSession()">
+    Começar sessão
+  </button>
+  <ion-grid>
+    <ion-row style="font-size: 20px; font-weight: bold">
+      <ion-col>
+        Nome do Participante
+      </ion-col>
+      <ion-col>
+        Número de acertos
+      </ion-col>
+      <ion-col>
+        Número de erros
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let user of session?.users" style="font-size: 16px;">
+      <ion-col>
+        {{user.name}}
+      </ion-col>
+      <ion-col style="color: #8BC34A">
+        n de questoes certas
+      </ion-col>
+      <ion-col style="color: #C2185B">
+        n de questoes erradas
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
   <ion-fab right bottom>
     <button ion-fab (click)="sessionsToggle(session.id)">
       <ion-icon name="close"></ion-icon>

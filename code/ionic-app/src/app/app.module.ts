@@ -15,6 +15,7 @@ import { GamePage } from "../pages/game/game";
 import { QuestionPage } from "../pages/question/question";
 import { AddSessionPage } from "../pages/add-session/add-session";
 import { QuestionsDetailsPage } from "../pages/questions-details/questions-details";
+import { TestPipe } from "../pipes/test/test";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { QuestionsDetailsPage } from "../pages/questions-details/questions-detai
     QuestionPage,
     AddSessionPage,
     QuestionsDetailsPage,
+    TestPipe
   ],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],

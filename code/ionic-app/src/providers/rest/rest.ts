@@ -10,25 +10,19 @@ import { LoadingController } from "ionic-angular";
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = "http://quizapi.azurewebsites.net/api";
+  apiUrl = "http://localhost:9276/api";
 
-  constructor(public http: HttpClient,public loadingCtrl:LoadingController) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
     console.log("Hello RestProvider Provider");
   }
 
   getQuiz(id) {
-    let loader = this.loadingCtrl.create({
-      content: "Carregando... Por favor Espere "
-    });
-    loader.present();
     return new Promise(resolve => {
       this.http.get(this.apiUrl + "/quizzes/" + id).subscribe(
         data => {
-          loader.dismiss();
           resolve(data);
         },
         err => {
-          loader.dismiss();
           console.log(err);
         }
       );
@@ -97,18 +91,12 @@ export class RestProvider {
   }
 
   getSession(id) {
-    let loader = this.loadingCtrl.create({
-      content: "Carregando... Por favor Espere "
-    });
-    loader.present();
     return new Promise(resolve => {
       this.http.get(this.apiUrl + "/sessions/" + id).subscribe(
         data => {
-          loader.dismiss();
           resolve(data);
         },
         err => {
-          loader.dismiss();
           console.log(err);
         }
       );
@@ -218,13 +206,13 @@ export class RestProvider {
       );
     });
   }
-   sessionsToggle(id) {
+  sessionsToggle(id) {
     let loader = this.loadingCtrl.create({
       content: "Carregando... Por favor Espere "
     });
     loader.present();
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + "/sessions/" + id+"/toggle").subscribe(
+      this.http.get(this.apiUrl + "/sessions/" + id + "/toggle").subscribe(
         data => {
           loader.dismiss();
           resolve(data);
@@ -236,6 +224,4 @@ export class RestProvider {
       );
     });
   }
-
-
 }
