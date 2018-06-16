@@ -8,9 +8,14 @@ namespace QuizApi.Controllers
 {
     public class GameHub : Hub
     {
-        public Task Send(string data)
+        public async Task Send(int id, string nome, int wins, int loses)
         {
-            return Clients.All.SendAsync("Send", data);
+            await Clients.All.SendAsync("UpdateUser", id, nome, wins, loses);
+        }
+        
+        public async Task StartGame()
+        {
+            await Clients.All.SendAsync("StartedGame");
         }
     }
 }

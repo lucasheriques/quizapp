@@ -90,6 +90,9 @@ namespace QuizApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (!_context.Sessions.Find(user.SessionId).Available)
+                return BadRequest("Sessão fechada");
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
